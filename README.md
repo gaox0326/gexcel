@@ -2,7 +2,7 @@
 gexcel is a library to convert excel into Java object.
 
 ## Using gexcel
-The primary classes to use, [`Excel`](gexcel/src/main/java/com/github/gaoxue/gexcel/Excel.java) and [`ExcelConfig`](gexcel/src/main/java/com/github/gaoxue/gexcel/ExcelConfig.java).
+The primary classes to use, [`Excel`](https://github.com/gaox0326/gexcel/blob/master/src/main/java/com/github/gaoxue/gexcel/Excel.java) and [`ExcelConfig`](https://github.com/gaox0326/gexcel/blob/master/src/main/java/com/github/gaoxue/gexcel/ExcelConfig.java).
 
 ### Object Examples
 ```
