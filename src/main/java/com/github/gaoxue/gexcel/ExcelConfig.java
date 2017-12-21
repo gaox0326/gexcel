@@ -24,7 +24,7 @@ public class ExcelConfig {
 
     private int dataRowIndex = 1;
 
-    /** 日期格式化格式 */
+    /** date format pattern */
     private String dateFormat;
 
     public ExcelConfig(InputStream inputStream) throws ExcelParseException {
@@ -47,16 +47,16 @@ public class ExcelConfig {
     }
 
     /**
-     * 获取日期格式化格式
-     * @return 日期格式化格式
+     * get date format pattern
+     * @return date format pattern
      */
     public String getDateFormat() {
         return dateFormat;
     }
 
     /**
-     * 设置日期格式化格式
-     * @param dateFormat 日期格式化格式
+     * set date format pattern
+     * @param dateFormat date format pattern
      */
     public void setDateFormat(String dateFormat) {
         this.dateFormat = dateFormat;

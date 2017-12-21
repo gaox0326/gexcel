@@ -39,7 +39,13 @@ row index | name   | age
 
 ### Java object requirements
 1. Use annotation `Column` to indicate a field is to be inclued for convert.
-2. Use ExcelConfig to indicate an excel for convert. Default values(0 based): sheet index is 0, title row index is 0, data row index is 1. Use user-defined config as follows:
+2. Use `ExcelConfig` to indicate an excel for convert. Default values(0 based): sheet index is 0, title row index is 0, data row index is 1. Use user-defined config as follows:
 ```
 ExcelConfig config = new ExcelConfig(inputStream, sheetIndex, titleRowIndex, dataRowIndex);
 ```
+config property | description
+ :----:         | :----
+ sheetIndex     | excel sheet to handle
+ titleRowIndex  | excel title row index
+ dataRowIndex   | excel data row begin index
+ dateFormat     | how to parse excel string value to Java Date field
