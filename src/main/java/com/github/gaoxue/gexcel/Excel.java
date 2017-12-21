@@ -12,14 +12,14 @@ public class Excel {
 
     public static <T> T fromExcel(ExcelConfig config, Class<T> classOfT) {
         TypeToken<T> typeToken = TypeToken.get(classOfT);
-        TypeAdapter<T> adapter = AdapterFactory.create(typeToken);
+        TypeAdapter<T> adapter = AdapterFactory.create(typeToken, config);
         return adapter.read(config.getReader());
     }
 
     @SuppressWarnings("unchecked")
     public static <T> T fromExcel(ExcelConfig config, Type typeOfT) {
         TypeToken<Object> typeToken = TypeToken.get(typeOfT);
-        TypeAdapter<?> adapter = AdapterFactory.create(typeToken);
+        TypeAdapter<?> adapter = AdapterFactory.create(typeToken, config);
         return (T) adapter.read(config.getReader());
     }
 

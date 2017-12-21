@@ -5,6 +5,7 @@ import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 
+import com.github.gaoxue.gexcel.ExcelConfig;
 import com.github.gaoxue.gexcel.adapter.AdapterFactory;
 import com.github.gaoxue.gexcel.adapter.TypeAdapter;
 import com.github.gaoxue.gexcel.constructor.ConstructorFactory;
@@ -46,7 +47,7 @@ public class CollectionAdapter<T> implements TypeAdapter<Collection<T>> {
         return result;
     }
 
-    public static <E> CollectionAdapter<E> create(TypeToken<E> typeToken) {
+    public static <E> CollectionAdapter<E> create(TypeToken<E> typeToken, ExcelConfig config) {
         Class<? super E> rawType = typeToken.getRawType();
         if (!Collection.class.isAssignableFrom(rawType)) {
             return null;
@@ -58,7 +59,7 @@ public class CollectionAdapter<T> implements TypeAdapter<Collection<T>> {
         Type componnetType = getComponentType(typeToken);
         TypeToken<Object> componnetTypeToken = TypeToken.get(componnetType);
         @SuppressWarnings({ "unchecked", "rawtypes" })
-        CollectionAdapter<E> result = new CollectionAdapter(typeToken, AdapterFactory.create(componnetTypeToken));
+        CollectionAdapter<E> result = new CollectionAdapter(typeToken, AdapterFactory.create(componnetTypeToken, config));
         return result;
     }
 

@@ -24,6 +24,9 @@ public class ExcelConfig {
 
     private int dataRowIndex = 1;
 
+    /** 日期格式化格式 */
+    private String dateFormat;
+
     public ExcelConfig(InputStream inputStream) throws ExcelParseException {
         try {
             workbook = WorkbookFactory.create(inputStream);
@@ -41,5 +44,21 @@ public class ExcelConfig {
 
     public ExcelReader getReader() {
         return new ExcelReader(workbook, sheetIndex, titleRowIndex, dataRowIndex);
+    }
+
+    /**
+     * 获取日期格式化格式
+     * @return 日期格式化格式
+     */
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    /**
+     * 设置日期格式化格式
+     * @param dateFormat 日期格式化格式
+     */
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
     }
 }

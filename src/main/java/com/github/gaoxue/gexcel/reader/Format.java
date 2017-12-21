@@ -1,7 +1,6 @@
 package com.github.gaoxue.gexcel.reader;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -12,18 +11,20 @@ public class Format {
 
     // TODO customer format
 
-    // format to String
-    public static String format(double value) {
-        return Double.toString(value);
-    }
+    /** default date format, ignore multiple threads */
+    private static DateFormat DEFAULT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     public static String format(Date date) {
         String result = "";
         if (date != null) {
-            DateFormat dateFormat = new SimpleDateFormat("yyyyMMhh");
-            result = dateFormat.format(date);
+            result = DEFAULT_DATE_FORMAT.format(date);
         }
         return result;
+    }
+
+    // format to String
+    public static String format(double value) {
+        return Double.toString(value);
     }
 
     public static String format(boolean value) {
@@ -36,11 +37,6 @@ public class Format {
 
     public static double format2Double(Date date) {
         return date.getTime();
-    }
-
-    public static Date format2Date(String value) throws ParseException {
-        DateFormat dateFormat = new SimpleDateFormat("yyyyMMhh");
-        return dateFormat.parse(value);
     }
 
     public static Date format2Date(double value) {

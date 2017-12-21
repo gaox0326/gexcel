@@ -1,8 +1,5 @@
 package com.github.gaoxue.gexcel.reader;
 
-import java.text.ParseException;
-import java.util.Date;
-
 import com.github.gaoxue.gexcel.template.Metedata;
 
 /**
@@ -27,8 +24,6 @@ public interface Reader {
     Boolean readBoolean();
 
     Double readDouble() throws NumberFormatException;
-
-    Date readDate() throws ParseException;
 
     Object readObject();
 

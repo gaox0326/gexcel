@@ -1,7 +1,5 @@
 package com.github.gaoxue.gexcel.reader;
 
-import java.text.ParseException;
-import java.util.Date;
 import java.util.Stack;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -13,10 +11,17 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import com.github.gaoxue.common.StringUtil;
 import com.github.gaoxue.gexcel.exception.ExcelParseException;
 
 /**
+ * Read value from excel cell.
+ * <p>Value type
+ * <ul>
+ *   <li>{@code boolean}</li>
+ *   <li>{@code Date}</li>
+ *   <li>{@code double}</li>
+ *   <li>{@code String}</li>
+ * </ul>
  * @author gaoxue
  */
 public abstract class AbstractExcelReader implements Reader {
@@ -160,13 +165,6 @@ public abstract class AbstractExcelReader implements Reader {
     }
 
     @Override
-    public Date readDate() throws ParseException {
-        peek(ExcelToken.DATE);
-        Cell cell = row.getCell(currentColIndex);
-        return getDateValue(cell);
-    }
-
-    @Override
     public Object readObject() {
         peek(ExcelToken.OBJECTVALUE);
         Cell cell = row.getCell(currentColIndex);
@@ -182,18 +180,12 @@ public abstract class AbstractExcelReader implements Reader {
         if (cell == null) {
             return null;
         }
-        // DataFormatter formatter = new DataFormatter();
-        // String value1 = formatter.formatCellValue(cell);
         String value = null;
-        // performance evaluateAllFormulaCells
-        // external references
-        // CellType cellType = evaluator.evaluateFormulaCellEnum(cell);
-        CellValue cellValue = evaluator.evaluate(cell);
+        CellValue cellValue = evaluator.evaluate(cell); // This evaluates a given cell, and returns the new value, without affecting the cell
         CellType cellType = cellValue.getCellTypeEnum();
         switch (cellType) {
         case STRING:
         case BLANK:
-            // cell.getRichStringCellValue().getString();
             value = cell.getStringCellValue();
             break;
         case NUMERIC:
@@ -210,6 +202,7 @@ public abstract class AbstractExcelReader implements Reader {
             // never happen
             break;
         case ERROR:
+            cell.getErrorCellValue();
             // cell.getErrorCellValue();
             // FormulaError
         default:
@@ -259,33 +252,6 @@ public abstract class AbstractExcelReader implements Reader {
                 return null;
             }
             value = Format.format2Double(stringValue);
-            break;
-        }
-        return value;
-    }
-
-    private Date getDateValue(Cell cell) throws ParseException {
-        if (cell == null) {
-            return null;
-        }
-        Date value = null;
-        // CellType cellType = evaluator.evaluateFormulaCellEnum(cell);
-        CellValue cellValue = evaluator.evaluate(cell);
-        CellType cellType = cellValue.getCellTypeEnum();
-        switch (cellType) {
-        case NUMERIC:
-            if (DateUtil.isCellDateFormatted(cell)) {
-                value = cell.getDateCellValue();
-            } else {
-                value = Format.format2Date(cell.getNumericCellValue());
-            }
-            break;
-        default:
-            String stringValue = getStringValue(cell);
-            if (StringUtil.isNullOrEmpty(stringValue)) {
-                return null;
-            }
-            value = Format.format2Date(stringValue);
             break;
         }
         return value;
