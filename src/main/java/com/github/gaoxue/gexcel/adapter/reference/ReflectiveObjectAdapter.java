@@ -7,7 +7,6 @@ import java.util.Map;
 
 import com.github.gaoxue.common.AnnotationUtil;
 import com.github.gaoxue.common.StringUtil;
-import com.github.gaoxue.gexcel.ExcelConfig;
 import com.github.gaoxue.gexcel.adapter.AdapterFactory;
 import com.github.gaoxue.gexcel.adapter.TypeAdapter;
 import com.github.gaoxue.gexcel.exception.ExcelParseException;
@@ -73,17 +72,17 @@ public class ReflectiveObjectAdapter<T> implements TypeAdapter<T> {
         this.typeToken = typeToken;
     }
 
-    public static <T> ReflectiveObjectAdapter<T> create(TypeToken<T> typeToken, ExcelConfig config) {
+    public static <T> ReflectiveObjectAdapter<T> create(TypeToken<T> typeToken) {
         Class<? super T> rawType = typeToken.getRawType();
         if (!Object.class.isAssignableFrom(rawType)) {
             return null;
         }
         ReflectiveObjectAdapter<T> result = new ReflectiveObjectAdapter<T>(typeToken);
-        result.fieldMap = getFieldMap(typeToken, config);
+        result.fieldMap = getFieldMap(typeToken);
         return result;
     }
 
-    private static <T> Map<String, ReflectiveField> getFieldMap(TypeToken<T> typeToken, ExcelConfig config) {
+    private static <T> Map<String, ReflectiveField> getFieldMap(TypeToken<T> typeToken) {
         Map<String, ReflectiveField> fieldMap = new HashMap<String, ReflectiveField>();
         List<Field> fieldList = AnnotationUtil.getFieldAnnotated(typeToken.getRawType(), Column.class);
         for (Field field : fieldList) {
@@ -93,7 +92,7 @@ public class ReflectiveObjectAdapter<T> implements TypeAdapter<T> {
                 name = field.getName();
             }
             Class<?> type = field.getType();
-            TypeAdapter<?> typeAdapter = AdapterFactory.create(TypeToken.get(type), config);
+            TypeAdapter<?> typeAdapter = AdapterFactory.create(TypeToken.get(type));
             if (typeAdapter instanceof ReflectiveObjectAdapter) {
                 // TODO association
                 ((ReflectiveObjectAdapter<?>) typeAdapter).setIsMain(false);

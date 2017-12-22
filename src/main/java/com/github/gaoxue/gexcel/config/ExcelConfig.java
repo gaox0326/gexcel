@@ -1,4 +1,4 @@
-package com.github.gaoxue.gexcel;
+package com.github.gaoxue.gexcel.config;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,9 +24,6 @@ public class ExcelConfig {
 
     private int dataRowIndex = 1;
 
-    /** date format pattern */
-    private String dateFormat;
-
     public ExcelConfig(InputStream inputStream) throws ExcelParseException {
         try {
             workbook = WorkbookFactory.create(inputStream);
@@ -46,19 +43,4 @@ public class ExcelConfig {
         return new ExcelReader(workbook, sheetIndex, titleRowIndex, dataRowIndex);
     }
 
-    /**
-     * get date format pattern
-     * @return date format pattern
-     */
-    public String getDateFormat() {
-        return dateFormat;
-    }
-
-    /**
-     * set date format pattern
-     * @param dateFormat date format pattern
-     */
-    public void setDateFormat(String dateFormat) {
-        this.dateFormat = dateFormat;
-    }
 }

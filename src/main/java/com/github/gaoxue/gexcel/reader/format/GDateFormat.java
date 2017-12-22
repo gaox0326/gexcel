@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.github.gaoxue.common.StringUtil;
+
 /**
  * Date format class.
  * <p>Formats a date into date/time string.
@@ -24,8 +26,12 @@ public class GDateFormat {
         format = DEFAULT_DATE_FORMAT;
     }
 
-    public GDateFormat(DateFormat format) {
-        this.format = format;
+    public GDateFormat(String pattern) {
+        if (StringUtil.isNullOrEmpty(pattern)) {
+            format = DEFAULT_DATE_FORMAT;
+        } else {
+            format = new SimpleDateFormat(pattern);
+        }
     }
 
     /**
@@ -50,4 +56,13 @@ public class GDateFormat {
         }
         return result;
     }
+
+    /**
+     * Return date format pattern
+     * @return date format pattern
+     */
+    public String getPattern() {
+        return ((SimpleDateFormat) format).toPattern();
+    }
+
 }

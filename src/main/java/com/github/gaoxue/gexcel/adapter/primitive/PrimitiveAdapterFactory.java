@@ -3,7 +3,6 @@ package com.github.gaoxue.gexcel.adapter.primitive;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.github.gaoxue.gexcel.ExcelConfig;
 import com.github.gaoxue.gexcel.adapter.TypeAdapter;
 import com.github.gaoxue.gexcel.reflect.TypeToken;
 
@@ -23,7 +22,7 @@ public final class PrimitiveAdapterFactory {
      * @return adapter
      */
     @SuppressWarnings("unchecked")
-    public static <T> TypeAdapter<T> create(TypeToken<T> typeToken, ExcelConfig config) {
+    public static <T> TypeAdapter<T> create(TypeToken<T> typeToken) {
         if (adapterCache.containsKey(typeToken)) {
             return (TypeAdapter<T>) adapterCache.get(typeToken);
         }

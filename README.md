@@ -2,7 +2,7 @@
 gexcel is a library to convert excel into Java object.
 
 ## Using gexcel
-The primary classes to use, [`Excel`](https://github.com/gaox0326/gexcel/blob/master/src/main/java/com/github/gaoxue/gexcel/Excel.java) and [`ExcelConfig`](https://github.com/gaox0326/gexcel/blob/master/src/main/java/com/github/gaoxue/gexcel/ExcelConfig.java).
+The primary classes to use, [`Excel`](https://github.com/gaox0326/gexcel/blob/master/src/main/java/com/github/gaoxue/gexcel/Excel.java) and [`ExcelConfig`](https://github.com/gaox0326/gexcel/blob/master/src/main/java/com/github/gaoxue/gexcel/config/ExcelConfig.java).
 
 ### Object Examples
 ```
@@ -48,4 +48,5 @@ config property | description
  sheetIndex     | excel sheet to handle
  titleRowIndex  | excel title row index
  dataRowIndex   | excel data row begin index
- dateFormat     | how to parse excel string value to Java Date field
+3. Use [`EnvironmentConfig`](https://github.com/gaox0326/gexcel/blob/master/src/main/java/com/github/gaoxue/gexcel/config/EnvironmentConfig.java) to configure environment variables.
+* setDateFormatPattern: when Java object field type is Date, excel string value will be parsed to date with this pattern, default value yyyy-MM-dd.
