@@ -28,7 +28,7 @@ public class StringAdapter implements TypeAdapter<String> {
             return EnvironmentConfig.getInstance().getBooleanFormat().format((Boolean) obj);
         }
         if (clazz.isAssignableFrom(double.class)) {
-            return Double.toString((double) obj);
+            return EnvironmentConfig.getInstance().getDoubleFormat().format((double) obj);
         }
         return obj.toString();
     }

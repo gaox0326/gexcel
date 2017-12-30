@@ -1,10 +1,8 @@
 package com.github.gaoxue.gexcel.adapter.primitive;
 
-import java.util.Date;
-
 import com.github.gaoxue.gexcel.adapter.TypeAdapter;
 import com.github.gaoxue.gexcel.config.EnvironmentConfig;
-import com.github.gaoxue.gexcel.exception.ExcelParseException;
+import com.github.gaoxue.gexcel.exception.ExceptionConstant;
 import com.github.gaoxue.gexcel.reader.Reader;
 
 /**
@@ -29,13 +27,10 @@ public final class BooleanAdapter implements TypeAdapter<Boolean> {
         if (obj instanceof Boolean) {
             return (Boolean) obj;
         }
-        if (obj instanceof Date) {
-            throw new ExcelParseException("Expected a boolean but was Date: " + obj + ".");
+        if (obj instanceof String) {
+            return EnvironmentConfig.getInstance().getBooleanFormat().parse((String) obj);
         }
-        if (obj instanceof Double) {
-            throw new ExcelParseException("Expected a boolean but was double: " + obj + ".");
-        }
-        return EnvironmentConfig.getInstance().getBooleanFormat().parse((String) obj);
+        throw ExceptionConstant.getUnexpectedTypeEx("Boolean", obj.getClass().getName(), obj.toString());
     }
 
 }
