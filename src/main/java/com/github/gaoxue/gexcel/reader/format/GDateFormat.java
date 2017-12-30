@@ -9,8 +9,8 @@ import com.github.gaoxue.common.StringUtil;
 
 /**
  * Date format class.
- * <p>Formats a date into date/time string.
- * <p>Parses a string to a date.
+ * <p>Format a date into date/time string.
+ * <p>Parse a string to a date.
  * <p>Ignore multiple threads.
  * 
  * @author gaoxue
@@ -35,7 +35,7 @@ public class GDateFormat {
     }
 
     /**
-     * Parses a string to a date
+     * Parse a string to a date
      * @param str string value
      * @return parsed date
      * @throws ParseException
@@ -45,7 +45,7 @@ public class GDateFormat {
     }
 
     /**
-     * Formats a date into date/time string
+     * Format a date into date/time string
      * @param date date value
      * @return formated string
      */

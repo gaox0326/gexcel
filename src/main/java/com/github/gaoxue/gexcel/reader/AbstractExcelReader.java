@@ -17,9 +17,9 @@ import com.github.gaoxue.gexcel.exception.ExcelParseException;
  * Read value from excel cell.
  * <p>Value type
  * <ul>
- *   <li>{@code boolean}</li>
+ *   <li>{@code Boolean}</li>
  *   <li>{@code Date}</li>
- *   <li>{@code double}</li>
+ *   <li>{@code Double}</li>
  *   <li>{@code String}</li>
  * </ul>
  * @author gaoxue
@@ -63,10 +63,6 @@ public abstract class AbstractExcelReader implements Reader {
         }
         this.workbook = workbook;
         this.sheetIndex = sheetIndex;
-        init();
-    }
-
-    protected void init() {
         evaluator = workbook.getCreationHelper().createFormulaEvaluator();
         sheet = workbook.getSheetAt(sheetIndex);
         lastRowIndex = sheet.getLastRowNum();
@@ -144,27 +140,6 @@ public abstract class AbstractExcelReader implements Reader {
     }
 
     @Override
-    public String readString() {
-        peek(ExcelToken.STRING);
-        Cell cell = row.getCell(currentColIndex);
-        return getStringValue(cell);
-    }
-
-    @Override
-    public Boolean readBoolean() {
-        peek(ExcelToken.BOOLEAN);
-        Cell cell = row.getCell(currentColIndex);
-        return getBooleanValue(cell);
-    }
-
-    @Override
-    public Double readDouble() throws NumberFormatException {
-        peek(ExcelToken.DOUBLE);
-        Cell cell = row.getCell(currentColIndex);
-        return getDoubleValue(cell);
-    }
-
-    @Override
     public Object readObject() {
         peek(ExcelToken.OBJECTVALUE);
         Cell cell = row.getCell(currentColIndex);
@@ -176,93 +151,11 @@ public abstract class AbstractExcelReader implements Reader {
         peek(ExcelToken.SKIP);
     }
 
-    private String getStringValue(Cell cell) {
-        if (cell == null) {
-            return null;
-        }
-        String value = null;
-        CellValue cellValue = evaluator.evaluate(cell); // This evaluates a given cell, and returns the new value, without affecting the cell
-        CellType cellType = cellValue.getCellTypeEnum();
-        switch (cellType) {
-        case STRING:
-        case BLANK:
-            value = cell.getStringCellValue();
-            break;
-        case NUMERIC:
-            if (DateUtil.isCellDateFormatted(cell)) {
-                value = Format.format(cell.getDateCellValue());
-            } else {
-                value = Format.format(cell.getNumericCellValue());
-            }
-            break;
-        case BOOLEAN:
-            value = Format.format(cell.getBooleanCellValue());
-            break;
-        case FORMULA:
-            // never happen
-            break;
-        case ERROR:
-            cell.getErrorCellValue();
-            // cell.getErrorCellValue();
-            // FormulaError
-        default:
-            break;
-        }
-        return value;
-    }
-
-    private Boolean getBooleanValue(Cell cell) {
-        if (cell == null) {
-            return null;
-        }
-        Boolean value = null;
-        // CellType cellType = evaluator.evaluateFormulaCellEnum(cell);
-        CellValue cellValue = evaluator.evaluate(cell);
-        CellType cellType = cellValue.getCellTypeEnum();
-        switch (cellType) {
-        case BOOLEAN:
-            value = cell.getBooleanCellValue();
-            break;
-        default:
-            String stringValue = getStringValue(cell);
-            value = Format.format2Boolean(stringValue);
-            break;
-        }
-        return value;
-    }
-
-    private Double getDoubleValue(Cell cell) throws NumberFormatException {
-        if (cell == null) {
-            return null;
-        }
-        Double value = null;
-        // CellType cellType = evaluator.evaluateFormulaCellEnum(cell);
-        CellValue cellValue = evaluator.evaluate(cell);
-        CellType cellType = cellValue.getCellTypeEnum();
-        switch (cellType) {
-        case NUMERIC:
-            if (DateUtil.isCellDateFormatted(cell)) {
-                value = Format.format2Double(cell.getDateCellValue());
-            } else {
-                value = cell.getNumericCellValue();
-            }
-        default:
-            String stringValue = getStringValue(cell);
-            if (stringValue == null) {
-                return null;
-            }
-            value = Format.format2Double(stringValue);
-            break;
-        }
-        return value;
-    }
-
     private Object getObjectValue(Cell cell) {
         if (cell == null) {
             return null;
         }
         Object value = null;
-        // CellType cellType = evaluator.evaluateFormulaCellEnum(cell);
         CellValue cellValue = evaluator.evaluate(cell);
         CellType cellType = cellValue.getCellTypeEnum();
         switch (cellType) {
@@ -285,7 +178,6 @@ public abstract class AbstractExcelReader implements Reader {
             break;
         case ERROR:
             // cell.getErrorCellValue();
-            // FormulaError
         default:
             break;
         }

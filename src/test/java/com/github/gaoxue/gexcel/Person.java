@@ -43,6 +43,11 @@ public class Person {
     @Column
     private Date birthdate;
 
+    @Getter
+    @Setter
+    @Column
+    private Boolean isEnable;
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
@@ -50,7 +55,8 @@ public class Person {
         result.append("name: " + name).append(", ");
         result.append("mobilePhoneNumber: " + mobilePhoneNumber).append(", ");
         result.append("age: " + age).append(", ");
-        result.append("birthdate: " + birthdate);
+        result.append("birthdate: " + birthdate).append(", ");
+        result.append("isEnable: " + isEnable);
         return result.toString();
     }
 }

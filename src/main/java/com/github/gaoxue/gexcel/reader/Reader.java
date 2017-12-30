@@ -19,12 +19,6 @@ public interface Reader {
 
     Metedata readNextMeteData();
 
-    String readString();
-
-    Boolean readBoolean();
-
-    Double readDouble() throws NumberFormatException;
-
     Object readObject();
 
     void skip();

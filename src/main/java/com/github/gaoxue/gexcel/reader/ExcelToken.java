@@ -21,14 +21,6 @@ public enum ExcelToken {
 
     METEDATA,
 
-    STRING,
-
-    BOOLEAN,
-
-    DOUBLE,
-
-    DATE,
-
     OBJECTVALUE,
 
     SKIP,

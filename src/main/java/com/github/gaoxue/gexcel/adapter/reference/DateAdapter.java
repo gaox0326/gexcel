@@ -11,7 +11,7 @@ import com.github.gaoxue.gexcel.reader.format.GDateFormat;
 
 /**
  * {@code Date} adapter.
- * <p>When handle string value, parse with {@link #format} which provided by {@link EnvironmentConfig}
+ * <p>When handle string value, parse with format provided by {@link EnvironmentConfig}
  * <p>Default format pattern "yyyy-MM-dd"
  * @author gaoxue
  */
@@ -36,7 +36,7 @@ public class DateAdapter implements TypeAdapter<Date> {
         try {
             return format.parse(obj.toString());
         } catch (ParseException ex) {
-            throw new ExcelParseException("Excepted a Date bu was String: " + obj + ", parse with pattern " + format.getPattern() + " failed: " + ex.getMessage() + ".");
+            throw new ExcelParseException("Excepted a Date but was String: " + obj + ", parse with pattern " + format.getPattern() + " failed: " + ex.getMessage() + ".");
         }
     }
 

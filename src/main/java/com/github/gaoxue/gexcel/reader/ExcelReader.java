@@ -27,12 +27,6 @@ public class ExcelReader extends AbstractExcelReader {
         super(workbook, sheetIndex);
         this.titleRowIndex = titleRowIndex;
         this.dataRowIndex = dataRowIndex;
-        init();
-    }
-
-    @Override
-    protected void init() {
-        super.init();
         initMetedata();
     }
 
@@ -41,9 +35,12 @@ public class ExcelReader extends AbstractExcelReader {
         rowIndex = titleRowIndex;
         beginObject();
         while (hasNext()) {
-            String value = readString();
+            Object value = readObject();
+            if (value == null) {
+                continue;
+            }
             Metedata metedata = new Metedata();
-            metedata.setName(value);
+            metedata.setName(value.toString());
             metedata.setIndex(currentColIndex);
             metedataMap.put(currentColIndex, metedata);
         }
@@ -95,8 +92,7 @@ public class ExcelReader extends AbstractExcelReader {
             endRow();
         } else if (toPeek == ExcelToken.METEDATA) {
             checkColIndex();
-        } else if (toPeek == ExcelToken.STRING || toPeek == ExcelToken.BOOLEAN || toPeek == ExcelToken.DOUBLE || toPeek == ExcelToken.DATE
-                || toPeek == ExcelToken.OBJECTVALUE) {
+        } else if (toPeek == ExcelToken.OBJECTVALUE) {
             checkColIndex();
             currentColIndex = colIndex++;
         } else if (toPeek == ExcelToken.SKIP) {

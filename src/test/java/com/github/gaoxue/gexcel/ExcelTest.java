@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.github.gaoxue.gexcel.config.ExcelConfig;
 import com.github.gaoxue.gexcel.reflect.TypeToken;
 
 /**
@@ -15,6 +16,8 @@ public class ExcelTest {
 
     @Test
     public void test() {
+        // EnvironmentConfig.getInstance().setDateFormatPattern("yyyy-MM-dd HH:mm:ss");
+        
         String filename = "/excel/person.xls";
         InputStream inputStream = getClass().getResourceAsStream(filename);
         ExcelConfig config = new ExcelConfig(inputStream);
