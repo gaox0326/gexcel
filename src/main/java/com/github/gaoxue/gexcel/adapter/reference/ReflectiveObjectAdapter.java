@@ -9,6 +9,8 @@ import com.github.gaoxue.common.AnnotationUtil;
 import com.github.gaoxue.common.StringUtil;
 import com.github.gaoxue.gexcel.adapter.AdapterFactory;
 import com.github.gaoxue.gexcel.adapter.TypeAdapter;
+import com.github.gaoxue.gexcel.constructor.ConstructorFactory;
+import com.github.gaoxue.gexcel.constructor.ObjectConstructor;
 import com.github.gaoxue.gexcel.exception.ExcelParseException;
 import com.github.gaoxue.gexcel.reader.Reader;
 import com.github.gaoxue.gexcel.reflect.TypeToken;
@@ -25,7 +27,7 @@ import lombok.Setter;
  */
 public class ReflectiveObjectAdapter<T> implements TypeAdapter<T> {
 
-    private TypeToken<T> typeToken;
+    private ObjectConstructor<T> constructor;
 
     private Map<String, ReflectiveField> fieldMap;
 
@@ -34,42 +36,34 @@ public class ReflectiveObjectAdapter<T> implements TypeAdapter<T> {
     private Boolean isMain = true;
 
     public T read(Reader reader) {
-        try {
-            if (!reader.hasNext()) {
-                return null;
-            }
-            @SuppressWarnings("unchecked")
-            T result = (T) typeToken.getRawType().newInstance();
-            if (getIsMain()) {
-                reader.beginObject();
-            }
-            while (reader.hasNext()) {
-                String name = "";
-                Metedata metedata = reader.readNextMeteData();
-                if (metedata != null) {
-                    name = metedata.getName();
-                }
-                if (!fieldMap.containsKey(name)) {
-                    reader.skip();
-                    continue;
-                }
-                ReflectiveField field = fieldMap.get(name);
-                field.read(reader, result);
-            }
-            if (getIsMain()) {
-                reader.endObject();
-            }
-            return result;
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        if (!reader.hasNext()) {
+            return null;
         }
-        return null;
+        T result = constructor.construct();
+        if (getIsMain()) {
+            reader.beginObject();
+        }
+        while (reader.hasNext()) {
+            String name = "";
+            Metedata metedata = reader.readNextMeteData();
+            if (metedata != null) {
+                name = metedata.getName();
+            }
+            if (!fieldMap.containsKey(name)) {
+                reader.skip();
+                continue;
+            }
+            ReflectiveField field = fieldMap.get(name);
+            field.read(reader, result);
+        }
+        if (getIsMain()) {
+            reader.endObject();
+        }
+        return result;
     }
 
     private ReflectiveObjectAdapter(TypeToken<T> typeToken) {
-        this.typeToken = typeToken;
+        constructor = ConstructorFactory.get(typeToken);
     }
 
     public static <T> ReflectiveObjectAdapter<T> create(TypeToken<T> typeToken) {
