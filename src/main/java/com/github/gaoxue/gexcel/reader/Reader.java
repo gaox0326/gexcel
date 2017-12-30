@@ -19,6 +19,10 @@ public interface Reader {
 
     Metedata readNextMeteData();
 
+    /**
+     * Get Object value.
+     * @return Object value
+     */
     Object readObject();
 
     void skip();

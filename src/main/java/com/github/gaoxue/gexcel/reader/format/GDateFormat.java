@@ -6,11 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.github.gaoxue.common.StringUtil;
+import com.github.gaoxue.gexcel.exception.ExcelParseException;
 
 /**
  * Date format class.
- * <p>Format a date into date/time string.
- * <p>Parse a string to a date.
+ * <p>Format Date into date/time String.
+ * <p>Parse String to Date.
  * <p>Ignore multiple threads.
  * 
  * @author gaoxue
@@ -35,19 +36,23 @@ public class GDateFormat {
     }
 
     /**
-     * Parse a string to a date
-     * @param str string value
-     * @return parsed date
+     * Parse String to Date
+     * @param str String value
+     * @return parsed Date
      * @throws ParseException
      */
-    public Date parse(String str) throws ParseException {
-        return format.parse(str);
+    public Date parse(String str) {
+        try {
+            return format.parse(str);
+        } catch (ParseException ex) {
+            throw new ExcelParseException("Date parse error with String value " + str + ", reason: " + ex.getMessage(), ex);
+        }
     }
 
     /**
-     * Format a date into date/time string
-     * @param date date value
-     * @return formated string
+     * Format Date into date/time String
+     * @param date Date value
+     * @return formated String
      */
     public String format(Date date) {
         String result = "";
@@ -58,8 +63,8 @@ public class GDateFormat {
     }
 
     /**
-     * Return date format pattern
-     * @return date format pattern
+     * Return Date format pattern
+     * @return Date format pattern
      */
     public String getPattern() {
         return ((SimpleDateFormat) format).toPattern();

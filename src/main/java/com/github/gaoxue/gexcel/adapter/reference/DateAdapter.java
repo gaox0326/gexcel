@@ -1,6 +1,5 @@
 package com.github.gaoxue.gexcel.adapter.reference;
 
-import java.text.ParseException;
 import java.util.Date;
 
 import com.github.gaoxue.gexcel.adapter.TypeAdapter;
@@ -33,11 +32,7 @@ public class DateAdapter implements TypeAdapter<Date> {
             throw new ExcelParseException("Expected a Date but was double: " + obj + ".");
         }
         GDateFormat format = EnvironmentConfig.getInstance().getDateFormat();
-        try {
-            return format.parse(obj.toString());
-        } catch (ParseException ex) {
-            throw new ExcelParseException("Excepted a Date but was String: " + obj + ", parse with pattern " + format.getPattern() + " failed: " + ex.getMessage() + ".");
-        }
+        return format.parse(obj.toString());
     }
 
 }

@@ -1,49 +1,47 @@
 package com.github.gaoxue.gexcel.adapter.primitive;
 
-import java.util.Date;
-
 import com.github.gaoxue.gexcel.adapter.TypeAdapter;
-import com.github.gaoxue.gexcel.exception.ExcelParseException;
+import com.github.gaoxue.gexcel.config.EnvironmentConfig;
+import com.github.gaoxue.gexcel.exception.ExceptionConstant;
 import com.github.gaoxue.gexcel.reader.Reader;
 
 /**
  * Integral type adapters.
  * <p>
  * Handle {@code Byte} {@code byte}, {@code Short} {@code short},
- * {@code Integer} {@code int}, {@code Long} {@code long}, {@code Character}
- * {@code char}, {@code Double} {@code double}, {@code Float} {@code float}.
+ * {@code Integer} {@code int}, {@code Long} {@code long},
+ * {@code Character} {@code char}, {@code Double} {@code double},
+ * {@code Float} {@code float}.
  * 
  * @author gaoxue
  */
 public class IntegralTypeAdapters {
 
+    static EnvironmentConfig config = EnvironmentConfig.getInstance();
+
     public static final TypeAdapter<Byte> BYTE = new TypeAdapter<Byte>() {
 
+        @Override
         public Byte read(Reader reader) {
             Object obj = reader.readObject();
             if (obj == null) {
                 return null;
             }
-            if (obj instanceof Date) {
-                throw new ExcelParseException("Expected a Byte but was Date: " + obj + ".");
-            }
             if (obj instanceof Boolean) {
-                return (byte) ((boolean) obj ? 1 : 0);
+                return config.getBooleanFormat().format2Int((Boolean) obj).byteValue();
             }
-            Double doubleValue = null;
+            Double doubleValue;
             if (obj instanceof Double) {
                 doubleValue = (Double) obj;
-            }
-            if (obj instanceof String) {
-                doubleValue = Double.parseDouble((String) obj);
-            }
-            if (doubleValue == null) {
-                return null;
+            } else if (obj instanceof String) {
+                doubleValue = config.getDoubleFormat().parse((String) obj);
+            } else { // Date and other
+                throw ExceptionConstant.getUnexpectedTypeEx("Byte", obj.getClass().getName(), obj.toString());
             }
             byte value = doubleValue.byteValue();
             if (doubleValue.doubleValue() != value) {
                 // Make sure no precision was lost casting to 'byte'.
-                throw new ExcelParseException("Expected a Byte but was " + doubleValue + ".");
+                throw ExceptionConstant.getOutOfBoundsEx("Byte", Double.toString(doubleValue));
             }
             return value;
         }
@@ -51,31 +49,27 @@ public class IntegralTypeAdapters {
 
     public static final TypeAdapter<Short> SHORT = new TypeAdapter<Short>() {
 
+        @Override
         public Short read(Reader reader) {
             Object obj = reader.readObject();
             if (obj == null) {
                 return null;
             }
-            if (obj instanceof Date) {
-                throw new ExcelParseException("Expected a Short but was Date: " + obj + ".");
-            }
             if (obj instanceof Boolean) {
-                return (short) ((boolean) obj ? 1 : 0);
+                return config.getBooleanFormat().format2Int((Boolean) obj).shortValue();
             }
-            Double doubleValue = null;
+            Double doubleValue;
             if (obj instanceof Double) {
                 doubleValue = (Double) obj;
-            }
-            if (obj instanceof String) {
-                doubleValue = Double.parseDouble((String) obj);
-            }
-            if (doubleValue == null) {
-                return null;
+            } else if (obj instanceof String) {
+                doubleValue = config.getDoubleFormat().parse((String) obj);
+            } else { // Date and other
+                throw ExceptionConstant.getUnexpectedTypeEx("Short", obj.getClass().getName(), obj.toString());
             }
             short value = doubleValue.shortValue();
             if (doubleValue.doubleValue() != value) {
                 // Make sure no precision was lost casting to 'short'.
-                throw new ExcelParseException("Expected a Short but was " + doubleValue + ".");
+                throw ExceptionConstant.getOutOfBoundsEx("Short", Double.toString(doubleValue));
             }
             return value;
         }
@@ -83,31 +77,27 @@ public class IntegralTypeAdapters {
 
     public static final TypeAdapter<Integer> INTEGER = new TypeAdapter<Integer>() {
 
+        @Override
         public Integer read(Reader reader) {
             Object obj = reader.readObject();
             if (obj == null) {
                 return null;
             }
-            if (obj instanceof Date) {
-                throw new ExcelParseException("Expected a Integer but was Date: " + obj + ".");
-            }
             if (obj instanceof Boolean) {
-                return (boolean) obj ? 1 : 0;
+                return config.getBooleanFormat().format2Int((Boolean) obj);
             }
-            Double doubleValue = null;
+            Double doubleValue;
             if (obj instanceof Double) {
                 doubleValue = (Double) obj;
-            }
-            if (obj instanceof String) {
-                doubleValue = Double.parseDouble((String) obj);
-            }
-            if (doubleValue == null) {
-                return null;
+            } else if (obj instanceof String) {
+                doubleValue = config.getDoubleFormat().parse((String) obj);
+            } else { // Date and other
+                throw ExceptionConstant.getUnexpectedTypeEx("Integer", obj.getClass().getName(), obj.toString());
             }
             int value = doubleValue.intValue();
             if (doubleValue.doubleValue() != value) {
                 // Make sure no precision was lost casting to 'int'.
-                throw new ExcelParseException("Expected a Integer but was " + doubleValue + ".");
+                throw ExceptionConstant.getOutOfBoundsEx("Integer", Double.toString(doubleValue));
             }
             return value;
         }
@@ -115,31 +105,27 @@ public class IntegralTypeAdapters {
 
     public static final TypeAdapter<Long> LONG = new TypeAdapter<Long>() {
 
+        @Override
         public Long read(Reader reader) {
             Object obj = reader.readObject();
             if (obj == null) {
                 return null;
             }
-            if (obj instanceof Date) {
-                throw new ExcelParseException("Expected a Long but was Date: " + obj + ".");
-            }
             if (obj instanceof Boolean) {
-                return (long) ((boolean) obj ? 1 : 0);
+                return config.getBooleanFormat().format2Int((Boolean) obj).longValue();
             }
-            Double doubleValue = null;
+            Double doubleValue;
             if (obj instanceof Double) {
                 doubleValue = (Double) obj;
-            }
-            if (obj instanceof String) {
-                doubleValue = Double.parseDouble((String) obj);
-            }
-            if (doubleValue == null) {
-                return null;
+            } else if (obj instanceof String) {
+                doubleValue = config.getDoubleFormat().parse((String) obj);
+            } else { // Date and other
+                throw ExceptionConstant.getUnexpectedTypeEx("Long", obj.getClass().getName(), obj.toString());
             }
             long value = doubleValue.intValue();
             if (doubleValue.doubleValue() != value) {
                 // Make sure no precision was lost casting to 'long'.
-                throw new ExcelParseException("Expected a Long but was " + doubleValue + ".");
+                throw ExceptionConstant.getOutOfBoundsEx("Long", Double.toString(doubleValue));
             }
             return value;
         }
@@ -147,23 +133,20 @@ public class IntegralTypeAdapters {
 
     public static final TypeAdapter<Character> CHARACTER = new TypeAdapter<Character>() {
 
+        @Override
         public Character read(Reader reader) {
             Object obj = reader.readObject();
             if (obj == null) {
                 return null;
             }
-            if (obj instanceof Date) {
-                throw new ExcelParseException("Expected a Character but was Date: " + obj + ".");
+            String stringValue;
+            if (obj instanceof String) {
+                stringValue = (String) obj;
+            } else { // Date, Boolean, Double and other
+                throw ExceptionConstant.getUnexpectedTypeEx("Character", obj.getClass().getName(), obj.toString());
             }
-            if (obj instanceof Boolean) {
-                throw new ExcelParseException("Expected a Character but was boolean: " + obj + ".");
-            }
-            if (obj instanceof Double) {
-                throw new ExcelParseException("Expected a Character but was double: " + obj + ".");
-            }
-            String stringValue = (String) obj;
             if (stringValue.length() != 1) {
-                throw new ExcelParseException("Expected a Character but was " + stringValue + ".");
+                throw ExceptionConstant.getOutOfBoundsEx("Character", stringValue);
             }
             return stringValue.charAt(0);
         }
@@ -171,26 +154,22 @@ public class IntegralTypeAdapters {
 
     public static final TypeAdapter<Float> FLOAT = new TypeAdapter<Float>() {
 
+        @Override
         public Float read(Reader reader) {
             Object obj = reader.readObject();
             if (obj == null) {
                 return null;
             }
-            if (obj instanceof Date) {
-                throw new ExcelParseException("Expected a Float but was Date: " + obj + ".");
-            }
             if (obj instanceof Boolean) {
-                return (float) ((boolean) obj ? 1 : 0);
+                return config.getBooleanFormat().format2Int((Boolean) obj).floatValue();
             }
-            Double doubleValue = null;
+            Double doubleValue;
             if (obj instanceof Double) {
                 doubleValue = (Double) obj;
-            }
-            if (obj instanceof String) {
-                doubleValue = Double.parseDouble((String) obj);
-            }
-            if (doubleValue == null) {
-                return null;
+            } else if (obj instanceof String) {
+                doubleValue = config.getDoubleFormat().parse((String) obj);
+            } else { // Date and other
+                throw ExceptionConstant.getUnexpectedTypeEx("Float", obj.getClass().getName(), obj.toString());
             }
             return doubleValue.floatValue();
         }
@@ -198,23 +177,22 @@ public class IntegralTypeAdapters {
 
     public static final TypeAdapter<Double> DOUBLE = new TypeAdapter<Double>() {
 
+        @Override
         public Double read(Reader reader) {
             Object obj = reader.readObject();
             if (obj == null) {
                 return null;
             }
-            if (obj instanceof Date) {
-                throw new ExcelParseException("Expected a Double but was Date: " + obj + ".");
-            }
             if (obj instanceof Boolean) {
-                return  (double) ((boolean) obj ? 1 : 0);
+                return config.getBooleanFormat().format2Int((Boolean) obj).doubleValue();
             }
-            Double doubleValue = null;
+            Double doubleValue;
             if (obj instanceof Double) {
                 doubleValue = (Double) obj;
-            }
-            if (obj instanceof String) {
-                doubleValue = Double.parseDouble((String) obj);
+            } else if (obj instanceof String) {
+                doubleValue = config.getDoubleFormat().parse((String) obj);
+            } else { // Date and other
+                throw ExceptionConstant.getUnexpectedTypeEx("Double", obj.getClass().getName(), obj.toString());
             }
             return doubleValue;
         }

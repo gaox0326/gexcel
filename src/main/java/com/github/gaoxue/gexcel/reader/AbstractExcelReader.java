@@ -15,12 +15,13 @@ import com.github.gaoxue.gexcel.exception.ExcelParseException;
 
 /**
  * Read value from excel cell.
- * <p>Value type
+ * <p>Value type:
  * <ul>
  *   <li>{@code Boolean}</li>
  *   <li>{@code Date}</li>
  *   <li>{@code Double}</li>
  *   <li>{@code String}</li>
+ *   <li>{@code null}</li>
  * </ul>
  * @author gaoxue
  */
@@ -139,6 +140,11 @@ public abstract class AbstractExcelReader implements Reader {
         peek(ExcelToken.END_OBJECT);
     }
 
+    /**
+     * Get Object value.
+     * <p>
+     * Possible value type: {@code Boolean}, {@code Date}, {@code Double}, {@code String}, {@code null}
+     */
     @Override
     public Object readObject() {
         peek(ExcelToken.OBJECTVALUE);
@@ -157,6 +163,10 @@ public abstract class AbstractExcelReader implements Reader {
         }
         Object value = null;
         CellValue cellValue = evaluator.evaluate(cell);
+        if (cellValue == null) {
+            // when fill in a cell with anything, save, then clear and save, cellValue will be null, why?
+            return null;
+        }
         CellType cellType = cellValue.getCellTypeEnum();
         switch (cellType) {
         case STRING:

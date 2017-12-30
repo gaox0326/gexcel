@@ -2,6 +2,7 @@ package com.github.gaoxue.gexcel.config;
 
 import com.github.gaoxue.gexcel.reader.format.GBooleanFormat;
 import com.github.gaoxue.gexcel.reader.format.GDateFormat;
+import com.github.gaoxue.gexcel.reader.format.GDoubleFormat;
 
 /**
  * Environment configurations.
@@ -20,14 +21,17 @@ public class EnvironmentConfig {
         return Singleton.INSTANCE;
     }
 
-    /** date format */
+    /** Date format */
     private GDateFormat dateFormat = new GDateFormat();
 
-    /** boolean format */
+    /** Boolean format */
     private GBooleanFormat booleanFormat = new GBooleanFormat();
 
+    /** Double format */
+    private GDoubleFormat doubleFormat = new GDoubleFormat();
+
     /**
-     * Get date format
+     * Get Date format
      * @return date format
      */
     public GDateFormat getDateFormat() {
@@ -35,7 +39,7 @@ public class EnvironmentConfig {
     }
 
     /**
-     * Get boolean format
+     * Get Boolean format
      * @return boolean format
      */
     public GBooleanFormat getBooleanFormat() {
@@ -43,27 +47,35 @@ public class EnvironmentConfig {
     }
 
     /**
-     * Set date format pattern
-     * <p>When Field type is Date, excel string value will be parsed to date with this pattern.
-     * @param pattern date format pattern
+     * Get Double format
+     * @return
+     */
+    public GDoubleFormat getDoubleFormat() {
+        return doubleFormat;
+    }
+
+    /**
+     * Set Date format pattern
+     * <p>When Field type is Date, excel string value will be parsed to Date with this pattern.
+     * @param pattern Date format pattern
      */
     public void setDateFormatPattern(String pattern) {
         dateFormat = new GDateFormat(pattern);
     }
 
     /**
-     * Set {@code true} string value for format
-     * <p>When Field type is String, excel boolean value {@code true} will be formated to String with this string value.
-     * @param trueFormat
+     * Set {@code true} String value for format
+     * <p>When Field type is String, excel boolean value {@code true} will be formated to String with this String value.
+     * @param trueFormat {@code true} String value for format
      */
     public void setTrueFormat(String trueFormat) {
         booleanFormat.setTrueFormat(trueFormat);
     }
 
     /**
-     * Set {@code false} string value for format
-     * <p>When Field type is String, excel boolean value {@code false} will be formated to String with this string value.
-     * @param falseFormat {@code false} string value for format
+     * Set {@code false} String value for format
+     * <p>When Field type is String, excel boolean value {@code false} will be formated to String with this String value.
+     * @param falseFormat {@code false} String value for format
      */
     public void setFalseFormat(String falseFormat) {
         booleanFormat.setFalseFormat(falseFormat);
