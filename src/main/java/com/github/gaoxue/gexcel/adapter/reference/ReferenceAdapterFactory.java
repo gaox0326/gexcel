@@ -15,6 +15,7 @@ import com.github.gaoxue.gexcel.reflect.TypeToken;
  */
 public final class ReferenceAdapterFactory {
 
+    /** cache of reference adapters */
     private static final Map<TypeToken<?>, TypeAdapter<?>> adapterCache = new ConcurrentHashMap<TypeToken<?>, TypeAdapter<?>>();
 
     /**

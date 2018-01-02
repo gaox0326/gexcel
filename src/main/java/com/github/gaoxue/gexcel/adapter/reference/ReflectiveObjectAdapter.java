@@ -27,8 +27,10 @@ import lombok.Setter;
  */
 public class ReflectiveObjectAdapter<T> implements TypeAdapter<T> {
 
+    /** reflective object constructor */
     private ObjectConstructor<T> constructor;
 
+    /** reflective object field map */
     private Map<String, ReflectiveField> fieldMap;
 
     @Getter

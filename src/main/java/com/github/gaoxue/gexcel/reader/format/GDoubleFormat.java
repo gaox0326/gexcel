@@ -13,10 +13,12 @@ public class GDoubleFormat {
 
     /**
      * Parse String to Double
+     * <p>When {@code str} is {@code null} return {@code null}.
      * @param str String value
-     * @return
+     * @return parsed Double
+     * @throws ExcelParseException if parse failed with {@link Double#parseDouble(String)}
      */
-    public Double parse(String str) {
+    public Double parse(String str) throws ExcelParseException {
         if (str == null) {
             return null;
         }
@@ -29,6 +31,7 @@ public class GDoubleFormat {
 
     /**
      * Format Double/double into String
+     * <p>When {@code gdouble} is {@code null} return "null".
      * @param gdouble Double/double value
      * @return formatted String
      */
@@ -36,6 +39,7 @@ public class GDoubleFormat {
         if (gdouble == null) {
             return "null";
         }
+        // TODO use DecimalFormat
         return gdouble.toString();
     }
 }

@@ -16,7 +16,7 @@ public class GBooleanFormat {
     private String falseFormat = "false";
 
     /**
-     * Parse String to Boolean, when {@link trueFormat} return {@code true}, otherwise {@code false}
+     * Parse String to Boolean, when {@link #trueFormat} return {@code true}, otherwise {@code false}
      * @param str String value
      * @return parsed Boolean
      */
@@ -26,6 +26,7 @@ public class GBooleanFormat {
 
     /**
      * Format Boolean/boolean into String
+     * <P>When {@code bool} is {@code null} return "null", when {@code true} return {@link #trueFormat}, otherwise {@link #falseFormat}.
      * @param bool Boolean/boolean value
      * @return formatted String
      */
@@ -38,6 +39,7 @@ public class GBooleanFormat {
 
     /**
      * Format Boolean/boolean into Integer
+     * <p>When {@code bool} is {@code true} return 1, otherwise 0
      * @param bool Boolean/boolean value
      * @return formatted Integer
      */

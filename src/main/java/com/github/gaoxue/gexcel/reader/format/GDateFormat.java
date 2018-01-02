@@ -39,9 +39,9 @@ public class GDateFormat {
      * Parse String to Date
      * @param str String value
      * @return parsed Date
-     * @throws ParseException
+     * @throws ExcelParseException if parse failed with {@link DateFormat#parse(String)}
      */
-    public Date parse(String str) {
+    public Date parse(String str) throws ExcelParseException {
         try {
             return format.parse(str);
         } catch (ParseException ex) {

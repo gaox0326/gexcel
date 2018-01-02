@@ -23,12 +23,11 @@ public class StringAdapter implements TypeAdapter<String> {
             GDateFormat format = EnvironmentConfig.getInstance().getDateFormat();
             return format.format((Date) obj);
         }
-        Class<? extends Object> clazz = obj.getClass();
-        if (clazz.isAssignableFrom(boolean.class)) {
+        if (obj instanceof Boolean) {
             return EnvironmentConfig.getInstance().getBooleanFormat().format((Boolean) obj);
         }
-        if (clazz.isAssignableFrom(double.class)) {
-            return EnvironmentConfig.getInstance().getDoubleFormat().format((double) obj);
+        if (obj instanceof Double) {
+            return EnvironmentConfig.getInstance().getDoubleFormat().format((Double) obj);
         }
         return obj.toString();
     }

@@ -11,6 +11,7 @@ import com.github.gaoxue.gexcel.reader.Reader;
  *   <li>{@code Date}</li>
  *   <li>{@code Double}</li>
  *   <li>{@code String}</li>
+ *   <li>{@code null}</li>
  * </ul>
  * @author gaoxue
  */
