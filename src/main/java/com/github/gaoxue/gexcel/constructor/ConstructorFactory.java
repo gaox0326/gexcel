@@ -63,6 +63,7 @@ public final class ConstructorFactory {
     }
 
     private static <T> ObjectConstructor<T> newDefaultImplementionConstructor(Type type, Class<? super T> rawType) {
+        // TODO object constructor implemention
         if (Collection.class.isAssignableFrom(rawType)) {
             if (SortedSet.class.isAssignableFrom(rawType)) {
 

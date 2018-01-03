@@ -1,6 +1,8 @@
 package com.github.gaoxue.gexcel.exception;
 
 /**
+ * Excel parse exception.
+ * 
  * @author gaoxue
  */
 public class ExcelParseException extends RuntimeException {

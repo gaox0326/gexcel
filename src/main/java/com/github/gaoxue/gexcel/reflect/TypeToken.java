@@ -91,7 +91,7 @@ public class TypeToken<T> {
             return Object.class;
         } else {
             String className = type == null ? "null" : type.getClass().getName();
-            throw new IllegalArgumentException("Expected a Class, ParameterizedType, or " + "GenericArrayType, but <" + type + "> is of type " + className);
+            throw new IllegalArgumentException("Expected a Class, ParameterizedType, or GenericArrayType, but <" + type + "> is of type " + className);
         }
     }
 

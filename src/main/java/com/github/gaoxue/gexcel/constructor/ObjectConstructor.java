@@ -1,7 +1,7 @@
 package com.github.gaoxue.gexcel.constructor;
 
 /**
- * Object constructor interface/
+ * Object constructor interface.
  * @author gaoxue
  */
 public interface ObjectConstructor<T> {
