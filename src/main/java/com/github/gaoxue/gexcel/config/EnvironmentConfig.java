@@ -56,7 +56,7 @@ public class EnvironmentConfig {
 
     /**
      * Set Date format pattern
-     * <p>When Field type is Date, excel string value will be parsed to Date with this pattern.
+     * <p>When Field type is Date(String), excel string(date) value will be parsed/formated to Date with this pattern.
      * @param pattern Date format pattern
      */
     public void setDateFormatPattern(String pattern) {
@@ -80,4 +80,14 @@ public class EnvironmentConfig {
     public void setFalseFormat(String falseFormat) {
         booleanFormat.setFalseFormat(falseFormat);
     }
+
+    /**
+     * Set Double format pattern
+     * <p>When Field type is Double(String), excel string(double) value will be parsed/formated to Double with this pattern.
+     * @param pattern Double format pattern
+     */
+    public void setDoubleFormatPattern(String pattern) {
+        doubleFormat = new GDoubleFormat(pattern);
+    }
+
 }

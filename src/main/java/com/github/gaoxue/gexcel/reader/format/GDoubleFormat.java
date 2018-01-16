@@ -1,5 +1,9 @@
 package com.github.gaoxue.gexcel.reader.format;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
+
+import com.github.gaoxue.common.StringUtil;
 import com.github.gaoxue.gexcel.exception.ExcelParseException;
 
 /**
@@ -10,6 +14,23 @@ import com.github.gaoxue.gexcel.exception.ExcelParseException;
  * @author gaoxue
  */
 public class GDoubleFormat {
+
+    /** default double format */
+    private static DecimalFormat DEFAULT_DATE_FORMAT = new DecimalFormat("#.##");
+
+    private DecimalFormat format;
+
+    public GDoubleFormat() {
+        format = DEFAULT_DATE_FORMAT;
+    }
+
+    public GDoubleFormat(String pattern) {
+        if (StringUtil.isNullOrEmpty(pattern)) {
+            format = DEFAULT_DATE_FORMAT;
+        } else {
+            format = new DecimalFormat(pattern);
+        }
+    }
 
     /**
      * Parse String to Double
@@ -23,8 +44,8 @@ public class GDoubleFormat {
             return null;
         }
         try {
-            return Double.parseDouble(str);
-        } catch (NumberFormatException ex) {
+            return format.parse(str).doubleValue();
+        } catch (ParseException ex) {
             throw new ExcelParseException("Double parse error with String value " + str + ", reason: " + ex.getMessage(), ex);
         }
     }
@@ -39,7 +60,14 @@ public class GDoubleFormat {
         if (gdouble == null) {
             return "null";
         }
-        // TODO use DecimalFormat
-        return gdouble.toString();
+        return format.format(gdouble);
+    }
+
+    /**
+     * Return Double format pattern
+     * @return Double format pattern
+     */
+    public String getPattern() {
+        return format.toPattern();
     }
 }

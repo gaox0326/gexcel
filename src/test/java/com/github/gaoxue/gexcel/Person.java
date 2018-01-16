@@ -83,6 +83,16 @@ public class Person {
     @Column(name = "Float")
     private Float floatCol;
 
+    @Getter
+    @Setter
+    @Column(name = "FloatStr")
+    private String floatStr;
+
+    @Getter
+    @Setter
+    @Column
+    private Double strDouble;
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
@@ -100,6 +110,8 @@ public class Person {
         result.append("charCol: " + charCol).append(", ");
         result.append("doubleCol: " + doubleCol).append(", ");
         result.append("floatCol: " + floatCol).append(", ");
+        result.append("FloatStr: " + floatStr).append(", ");
+        result.append("strDouble: " + strDouble).append(", ");
         return result.toString();
     }
 }

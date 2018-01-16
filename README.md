@@ -49,5 +49,6 @@ config property | description
  titleRowIndex  | excel title row index
  dataRowIndex   | excel data row begin index
 3. Use [`EnvironmentConfig`](https://github.com/gaox0326/gexcel/blob/master/src/main/java/com/github/gaoxue/gexcel/config/EnvironmentConfig.java) to configure environment variables.
-* setDateFormatPattern: when Java object field type is Date(String), excel string(Date) value will be parsed(formated) to date(String) with this pattern, default value yyyy-MM-dd.
+* setDateFormatPattern: when Java object field type is Date(String), excel string(Date) value will be parsed(formated) to date(String) with this pattern, default value yyyy-MM-dd. Use `SimpleDateFormat`.
 * setTrueFormat/setFalseFormat: when Java object field type is Boolean/boolean(String), excel String(boolean) value will be parsed(formatted) to Boolean(String) with this config, defalut "true" for `true`, "false" for `false`.
+* setDoubleFormatPattern: when Java Object field type is Double(String), excel string(Double) value will be parsed(formatted) to double(string) with this pattern, default value #.##. Use `DecimalFormat`.
